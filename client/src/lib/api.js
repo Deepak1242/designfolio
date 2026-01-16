@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-// Production backend URL
-const API_URL = import.meta.env.PROD 
-  ? 'https://designfoliobackend-d0pp8657k-demoncommander12-1854s-projects.vercel.app'
-  : '';
+// Backend URL - use env variable or hardcoded production URL
+const API_URL = import.meta.env.VITE_API_URL || (
+  import.meta.env.PROD 
+    ? 'https://designfoliobackend.vercel.app'
+    : ''
+);
 
 const api = axios.create({
   baseURL: API_URL,
