@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../lib/api';
 import toast from 'react-hot-toast';
 import MagneticButton from '../../components/ui/MagneticButton';
 
@@ -15,7 +15,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('/api/auth/login', formData);
+            const { data } = await api.post('/api/auth/login', formData);
             localStorage.setItem('userInfo', JSON.stringify(data));
             toast.success('Welcome back, Admin!');
             navigate('/admin/dashboard');

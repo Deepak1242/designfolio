@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios';
+import api from '../../lib/api';
 import ProjectCard from '../ui/ProjectCard';
 import ProjectModal from '../ui/ProjectModal';
 import { RotatingBadge } from '../ui/FunkyElements';
@@ -17,7 +17,7 @@ const ProjectsGallery = () => {
     useEffect(() => {
         const fetchFeaturedProjects = async () => {
             try {
-                const { data } = await axios.get('/api/projects/featured');
+                const { data } = await api.get('/api/projects/featured');
                 setProjects(data);
             } catch (error) {
                 console.error('Failed to fetch projects');

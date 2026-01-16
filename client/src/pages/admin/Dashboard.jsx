@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../lib/api';
 import toast from 'react-hot-toast';
 import MagneticButton from '../../components/ui/MagneticButton';
 
@@ -9,11 +9,9 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-
     const fetchProjects = async () => {
         try {
-            const { data } = await axios.get('/api/projects');
+            const { data } = await api.get('/api/projects');
             setProjects(data);
         } catch (error) {
             toast.error('Failed to load projects');
@@ -35,9 +33,7 @@ const Dashboard = () => {
         if (!window.confirm('Are you sure you want to delete this project?')) return;
 
         try {
-            await axios.delete(`/api/projects/${id}`, {
-                headers: { Authorization: `Bearer ${userInfo.token}` }
-            });
+            await api.delete(`/api/projects/${id}`);
             toast.success('Project deleted');
             fetchProjects();
         } catch (error) {
@@ -47,9 +43,7 @@ const Dashboard = () => {
 
     const handleToggleFeatured = async (id) => {
         try {
-            await axios.put(`/api/projects/${id}/featured`, {}, {
-                headers: { Authorization: `Bearer ${userInfo.token}` }
-            });
+            await api.put(`/api/projects/${id}/featured`);
             toast.success('Featured status updated');
             fetchProjects();
         } catch (error) {
@@ -108,8 +102,8 @@ const Dashboard = () => {
                                         <button
                                             onClick={() => handleToggleFeatured(project._id)}
                                             className={`px-3 py-1 text-sm rounded-full border transition-colors ${project.isFeatured
-                                                    ? 'bg-accent-lime/20 border-accent-lime text-accent-lime'
-                                                    : 'border-gray-700 text-gray-400 hover:border-accent-lime hover:text-accent-lime'
+                                                ? 'bg-accent-lime/20 border-accent-lime text-accent-lime'
+                                                : 'border-gray-700 text-gray-400 hover:border-accent-lime hover:text-accent-lime'
                                                 }`}
                                         >
                                             {project.isFeatured ? '★ Unfeature' : '☆ Feature'}

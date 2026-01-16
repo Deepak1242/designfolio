@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../lib/api';
 import toast from 'react-hot-toast';
 import MagneticButton from '../../components/ui/MagneticButton';
 
@@ -18,13 +18,11 @@ const ProjectForm = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-
     useEffect(() => {
         if (id) {
             const fetchProject = async () => {
                 try {
-                    const { data } = await axios.get(`/api/projects/${id}`);
+                    const { data } = await api.get(`/api/projects/${id}`);
                     setFormData({
                         title: data.title,
                         description: data.description,
@@ -65,18 +63,11 @@ const ProjectForm = () => {
                 priority: parseInt(formData.priority) || 0,
             };
 
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${userInfo.token}`,
-                },
-            };
-
             if (id) {
-                await axios.put(`/api/projects/${id}`, projectData, config);
+                await api.put(`/api/projects/${id}`, projectData);
                 toast.success('Project Updated');
             } else {
-                await axios.post('/api/projects', projectData, config);
+                await api.post('/api/projects', projectData);
                 toast.success('Project Created');
             }
             navigate('/admin/dashboard');

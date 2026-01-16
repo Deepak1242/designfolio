@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios';
+import api from '../lib/api';
 import ProjectCard from '../components/ui/ProjectCard';
 import ProjectModal from '../components/ui/ProjectModal';
 
@@ -15,7 +15,7 @@ const Projects = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const { data } = await axios.get('/api/projects');
+                const { data } = await api.get('/api/projects');
                 setProjects(data);
             } catch (error) {
                 console.error('Failed to fetch projects');

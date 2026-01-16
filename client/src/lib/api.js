@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-// Use environment variable for production, empty string for development (proxy handles it)
-const baseURL = import.meta.env.VITE_API_URL || '';
+// Production backend URL
+const API_URL = import.meta.env.PROD 
+  ? 'https://designfoliobackend-d0pp8657k-demoncommander12-1854s-projects.vercel.app'
+  : '';
 
 const api = axios.create({
-  baseURL,
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
