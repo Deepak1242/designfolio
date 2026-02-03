@@ -11,10 +11,12 @@ const ProjectForm = () => {
         category: 'UI/UX',
         tools: '',
         imageUrl: '',
+        imagePublicId: '',
         isFeatured: false,
         priority: 0,
     });
     const [loading, setLoading] = useState(false);
+    const [uploading, setUploading] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -29,6 +31,7 @@ const ProjectForm = () => {
                         category: data.category,
                         tools: data.tools?.join(', ') || '',
                         imageUrl: data.images?.[0]?.url || '',
+                        imagePublicId: data.images?.[0]?.publicId || '',
                         isFeatured: data.isFeatured || false,
                         priority: data.priority || 0,
                     });
@@ -39,6 +42,32 @@ const ProjectForm = () => {
             fetchProject();
         }
     }, [id]);
+
+    const handleImageUpload = async (file) => {
+        if (!file) return;
+        setUploading(true);
+        try {
+            const formDataUpload = new FormData();
+            formDataUpload.append('image', file);
+
+            const { data } = await api.post('/api/projects/upload', formDataUpload, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            setFormData((prev) => ({
+                ...prev,
+                imageUrl: data.url,
+                imagePublicId: data.publicId,
+            }));
+            toast.success('Image uploaded');
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Image upload failed');
+        } finally {
+            setUploading(false);
+        }
+    };
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -58,7 +87,7 @@ const ProjectForm = () => {
                 description: formData.description,
                 category: formData.category,
                 tools: formData.tools.split(',').map(t => t.trim()).filter(t => t),
-                images: formData.imageUrl ? [{ url: formData.imageUrl, publicId: 'manual', isFeatured: true }] : [],
+                images: formData.imageUrl ? [{ url: formData.imageUrl, publicId: formData.imagePublicId || 'manual', isFeatured: true }] : [],
                 isFeatured: formData.isFeatured,
                 priority: parseInt(formData.priority) || 0,
             };
@@ -147,6 +176,19 @@ const ProjectForm = () => {
                             placeholder="https://example.com/image.jpg"
                             className="w-full bg-black/50 border border-gray-700 rounded-lg p-3 text-white focus:border-primary focus:outline-none"
                         />
+                    </div>
+
+                    <div>
+                        <label className="block text-gray-400 text-sm mb-2">Upload Image</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => handleImageUpload(e.target.files?.[0])}
+                            className="w-full bg-black/50 border border-gray-700 rounded-lg p-3 text-white focus:border-primary focus:outline-none"
+                        />
+                        {uploading && (
+                            <p className="text-gray-400 text-sm mt-2">Uploading...</p>
+                        )}
                     </div>
 
                     <div className="flex gap-8">
