@@ -1,4 +1,5 @@
 const Project = require('../models/Project');
+const cloudinary = require('../config/cloudinary');
 
 // @desc    Fetch all projects
 // @route   GET /api/projects
@@ -112,6 +113,42 @@ const deleteProject = async (req, res) => {
   }
 };
 
+// @desc    Upload project image
+// @route   POST /api/projects/upload
+// @access  Private/Admin
+const uploadProjectImage = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'designfolio/projects',
+          resource_type: 'image',
+        },
+        (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        }
+      );
+
+      uploadStream.end(req.file.buffer);
+    });
+
+    return res.status(201).json({
+      url: uploadResult.secure_url,
+      publicId: uploadResult.public_id,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'Image upload failed' });
+  }
+};
+
 module.exports = {
   getProjects,
   getFeaturedProjects,
@@ -120,5 +157,6 @@ module.exports = {
   updateProject,
   toggleFeatured,
   deleteProject,
+  uploadProjectImage,
 };
 
