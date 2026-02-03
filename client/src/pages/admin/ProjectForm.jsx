@@ -12,6 +12,9 @@ const ProjectForm = () => {
         tools: '',
         imageUrl: '',
         imagePublicId: '',
+        projectUrl: '',
+        imageLayout: 'landscape',
+        imageAspect: '16/9',
         isFeatured: false,
         priority: 0,
     });
@@ -32,6 +35,9 @@ const ProjectForm = () => {
                         tools: data.tools?.join(', ') || '',
                         imageUrl: data.images?.[0]?.url || '',
                         imagePublicId: data.images?.[0]?.publicId || '',
+                        projectUrl: data.projectUrl || '',
+                        imageLayout: data.imageLayout || 'landscape',
+                        imageAspect: data.imageAspect || '16/9',
                         isFeatured: data.isFeatured || false,
                         priority: data.priority || 0,
                     });
@@ -71,6 +77,20 @@ const ProjectForm = () => {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
+        if (name === 'imageLayout') {
+            const layoutDefaults = {
+                landscape: '16/9',
+                portrait: '4/5',
+                square: '1/1',
+            };
+            setFormData({
+                ...formData,
+                imageLayout: value,
+                imageAspect: value === 'custom' ? formData.imageAspect : layoutDefaults[value],
+            });
+            return;
+        }
+
         setFormData({
             ...formData,
             [name]: type === 'checkbox' ? checked : value
@@ -88,6 +108,9 @@ const ProjectForm = () => {
                 category: formData.category,
                 tools: formData.tools.split(',').map(t => t.trim()).filter(t => t),
                 images: formData.imageUrl ? [{ url: formData.imageUrl, publicId: formData.imagePublicId || 'manual', isFeatured: true }] : [],
+                projectUrl: formData.projectUrl,
+                imageLayout: formData.imageLayout,
+                imageAspect: formData.imageAspect,
                 isFeatured: formData.isFeatured,
                 priority: parseInt(formData.priority) || 0,
             };
@@ -167,13 +190,13 @@ const ProjectForm = () => {
                     </div>
 
                     <div>
-                        <label className="block text-gray-400 text-sm mb-2">Image URL</label>
+                        <label className="block text-gray-400 text-sm mb-2">Project Link</label>
                         <input
                             type="url"
-                            name="imageUrl"
-                            value={formData.imageUrl}
+                            name="projectUrl"
+                            value={formData.projectUrl}
                             onChange={handleChange}
-                            placeholder="https://example.com/image.jpg"
+                            placeholder="https://your-project.com"
                             className="w-full bg-black/50 border border-gray-700 rounded-lg p-3 text-white focus:border-primary focus:outline-none"
                         />
                     </div>
@@ -188,6 +211,37 @@ const ProjectForm = () => {
                         />
                         {uploading && (
                             <p className="text-gray-400 text-sm mt-2">Uploading...</p>
+                        )}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Image Layout</label>
+                            <select
+                                name="imageLayout"
+                                value={formData.imageLayout}
+                                onChange={handleChange}
+                                className="w-full bg-black/50 border border-gray-700 rounded-lg p-3 text-white focus:border-primary focus:outline-none"
+                            >
+                                <option value="landscape">Landscape</option>
+                                <option value="portrait">Portrait</option>
+                                <option value="square">Square</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+
+                        {formData.imageLayout === 'custom' && (
+                            <div>
+                                <label className="block text-gray-400 text-sm mb-2">Custom Aspect Ratio (e.g. 4/5, 3/2)</label>
+                                <input
+                                    type="text"
+                                    name="imageAspect"
+                                    value={formData.imageAspect}
+                                    onChange={handleChange}
+                                    placeholder="16/9"
+                                    className="w-full bg-black/50 border border-gray-700 rounded-lg p-3 text-white focus:border-primary focus:outline-none"
+                                />
+                            </div>
                         )}
                     </div>
 

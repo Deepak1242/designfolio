@@ -79,7 +79,8 @@ const Projects = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     transition={{ duration: 0.5, delay: index * 0.05 }}
-                                    className="h-[400px]"
+                                    className="w-full"
+                                    style={{ aspectRatio: project.imageAspect || '16/9' }}
                                 >
                                     <ProjectCard
                                         project={{

@@ -42,7 +42,7 @@ const getProjectById = async (req, res) => {
 // @route   POST /api/projects
 // @access  Private/Admin
 const createProject = async (req, res) => {
-  const { title, description, category, tools, images, files, priority, isFeatured } = req.body;
+  const { title, description, category, tools, images, files, priority, isFeatured, projectUrl, imageLayout, imageAspect } = req.body;
 
   const project = new Project({
     title,
@@ -51,6 +51,9 @@ const createProject = async (req, res) => {
     tools,
     images,
     files,
+    projectUrl,
+    imageLayout,
+    imageAspect,
     priority,
     isFeatured: isFeatured || false,
   });
@@ -63,7 +66,7 @@ const createProject = async (req, res) => {
 // @route   PUT /api/projects/:id
 // @access  Private/Admin
 const updateProject = async (req, res) => {
-  const { title, description, category, tools, images, files, priority, isFeatured } = req.body;
+  const { title, description, category, tools, images, files, priority, isFeatured, projectUrl, imageLayout, imageAspect } = req.body;
 
   const project = await Project.findById(req.params.id);
 
@@ -74,6 +77,9 @@ const updateProject = async (req, res) => {
     project.tools = tools || project.tools;
     project.images = images || project.images;
     project.files = files || project.files;
+    project.projectUrl = projectUrl || project.projectUrl;
+    project.imageLayout = imageLayout || project.imageLayout;
+    project.imageAspect = imageAspect || project.imageAspect;
     project.priority = priority !== undefined ? priority : project.priority;
     project.isFeatured = isFeatured !== undefined ? isFeatured : project.isFeatured;
 

@@ -31,18 +31,22 @@ const ProjectModal = ({ project, onClose }) => {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12">
             <div
                 ref={overlayRef}
-                className="absolute inset-0 bg-gallery-bg/90 backdrop-blur-md opacity-0"
+                className="absolute inset-0 bg-gallery-bg/90 backdrop-blur-md opacity-0 z-0"
                 onClick={onClose}
             />
 
             <div
                 ref={contentRef}
-                className="bg-[#FDFCF8] w-full max-w-7xl h-[90vh] relative overflow-hidden flex flex-col md:flex-row shadow-2xl border border-black/5"
+                className="bg-[#FDFCF8] w-full max-w-7xl h-[90vh] relative overflow-hidden flex flex-col md:flex-row shadow-2xl border border-black/5 z-10"
+                onClick={(e) => e.stopPropagation()}
             >
                 {/* Close Button */}
                 <button
-                    onClick={onClose}
-                    className="absolute top-6 right-6 z-50 p-3 bg-white rounded-full text-black hover:bg-black hover:text-white transition-colors border border-black/10 cursor-pointer pointer-events-auto shadow-lg"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onClose();
+                    }}
+                    className="absolute top-6 right-6 z-20 p-3 bg-white rounded-full text-black hover:bg-black hover:text-white transition-colors border border-black/10 cursor-pointer pointer-events-auto shadow-lg"
                     aria-label="Close modal"
                 >
                     <IoClose size={28} />
@@ -71,16 +75,26 @@ const ProjectModal = ({ project, onClose }) => {
                         </div>
 
                         <div className="pt-8 border-t border-black/10">
-                            <MagneticButton className="w-full py-4 bg-gallery-text text-white font-bold flex items-center justify-center gap-2 hover:bg-accent-orange hover:text-black transition-colors">
-                                View Project <IoOpenOutline />
-                            </MagneticButton>
+                            {project.projectUrl ? (
+                                <MagneticButton
+                                    className="w-full py-4 bg-gallery-text text-white font-bold flex items-center justify-center gap-2 hover:bg-accent-orange hover:text-black transition-colors"
+                                    onClick={() => window.open(project.projectUrl, '_blank', 'noopener,noreferrer')}
+                                >
+                                    View Project <IoOpenOutline />
+                                </MagneticButton>
+                            ) : (
+                                <div className="w-full py-4 text-center text-gray-500 border border-black/10 rounded-lg">Project link not available</div>
+                            )}
                         </div>
                     </div>
                 </div>
 
                 {/* Image Section - Right (was Left) - Art focus */}
                 <div className="w-full md:w-2/3 h-1/2 md:h-full bg-gray-100 relative p-8 md:p-20 flex items-center justify-center">
-                    <div className="relative w-full h-full shadow-2xl rotate-1 group">
+                    <div
+                        className="relative w-full max-h-full shadow-2xl rotate-1 group bg-white"
+                        style={{ aspectRatio: project.imageAspect || '16/9', maxHeight: '100%' }}
+                    >
                         <img
                             src={project.image}
                             alt={project.title}

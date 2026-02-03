@@ -27,6 +27,18 @@ const projectSchema = mongoose.Schema({
     name: String,
     type: String,
   }],
+  projectUrl: {
+    type: String,
+  },
+  imageLayout: {
+    type: String,
+    enum: ['landscape', 'portrait', 'square', 'custom'],
+    default: 'landscape',
+  },
+  imageAspect: {
+    type: String,
+    default: '16/9',
+  },
   views: {
     type: Number,
     default: 0,

@@ -34,9 +34,12 @@ const ProjectsGallery = () => {
 
     // Map size based on priority for visual variety
     const getSizeClass = (project, index) => {
-        if (project.priority >= 10) return 'md:col-span-2 md:row-span-2 h-[600px]';
-        if (project.priority >= 5 || index === 0) return 'md:col-span-1 md:row-span-2 h-[600px]';
-        return 'h-[400px]';
+        if (project.imageLayout === 'portrait') return 'md:row-span-2';
+        if (project.imageLayout === 'landscape') return 'md:col-span-2';
+        if (project.imageLayout === 'square') return 'md:col-span-1';
+        if (project.priority >= 10) return 'md:col-span-2 md:row-span-2';
+        if (project.priority >= 5 || index === 0) return 'md:row-span-2';
+        return '';
     };
 
     return (
@@ -85,7 +88,8 @@ const ProjectsGallery = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    className={getSizeClass(project, index)}
+                                    className={`w-full ${getSizeClass(project, index)}`}
+                                    style={{ aspectRatio: project.imageAspect || '16/9' }}
                                 >
                                     <ProjectCard
                                         project={{
