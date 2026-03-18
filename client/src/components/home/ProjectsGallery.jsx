@@ -32,16 +32,6 @@ const ProjectsGallery = () => {
         ? projects
         : projects.filter(p => p.category === filter || p.tools?.includes(filter));
 
-    // Map size based on priority for visual variety
-    const getSizeClass = (project, index) => {
-        if (project.imageLayout === 'portrait') return 'md:row-span-2';
-        if (project.imageLayout === 'landscape') return 'md:col-span-2';
-        if (project.imageLayout === 'square') return 'md:col-span-1';
-        if (project.priority >= 10) return 'md:col-span-2 md:row-span-2';
-        if (project.priority >= 5 || index === 0) return 'md:row-span-2';
-        return '';
-    };
-
     return (
         <section id="work" className="min-h-screen py-32 px-6 md:px-12 bg-gallery-bg">
             <div className="max-w-[90vw] mx-auto">
@@ -62,7 +52,7 @@ const ProjectsGallery = () => {
                                 className={`font-sans text-sm md:text-base tracking-widest uppercase transition-all duration-300 relative group ${filter === cat ? 'text-black font-bold' : 'text-gray-400 hover:text-black'}`}
                             >
                                 {cat}
-                                <span className={`absolute -bottom-2 left-0 w-full h-0.5 bg-accent-acid transform origin-left transition-transform duration-300 ${filter === cat ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+                                <span className={`absolute -bottom-2 left-0 w-full h-0.5 bg-blue-800 transform origin-left transition-transform duration-300 ${filter === cat ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
                             </button>
                         ))}
                     </div>
@@ -77,7 +67,7 @@ const ProjectsGallery = () => {
                 ) : (
                     <motion.div
                         layout
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 grid-flow-dense"
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16"
                     >
                         <AnimatePresence>
                             {filteredProjects.map((project, index) => (
@@ -88,17 +78,16 @@ const ProjectsGallery = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    className={`w-full ${getSizeClass(project, index)}`}
-                                    style={{ aspectRatio: project.imageAspect || '16/9' }}
+                                    className="w-full p-4"
                                 >
                                     <ProjectCard
                                         project={{
                                             ...project,
                                             id: project._id,
                                             image: project.images?.[0]?.url || 'https://via.placeholder.com/600x400',
+                                            images: project.images || [],
                                         }}
                                         onClick={setSelectedProject}
-                                        className="h-full w-full"
                                     />
                                 </motion.div>
                             ))}

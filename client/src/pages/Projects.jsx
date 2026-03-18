@@ -53,7 +53,7 @@ const Projects = () => {
                             className={`font-sans text-sm md:text-base tracking-widest uppercase transition-all duration-300 relative group ${filter === cat ? 'text-black font-bold' : 'text-gray-400 hover:text-black'}`}
                         >
                             {cat}
-                            <span className={`absolute -bottom-2 left-0 w-full h-0.5 bg-accent-acid transform origin-left transition-transform duration-300 ${filter === cat ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+                            <span className={`absolute -bottom-2 left-0 w-full h-0.5 bg-blue-800 transform origin-left transition-transform duration-300 ${filter === cat ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
                         </button>
                     ))}
                 </div>
@@ -68,7 +68,7 @@ const Projects = () => {
                 ) : (
                     <motion.div
                         layout
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16"
                     >
                         <AnimatePresence>
                             {filteredProjects.map((project, index) => (
@@ -79,17 +79,16 @@ const Projects = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     transition={{ duration: 0.5, delay: index * 0.05 }}
-                                    className="w-full"
-                                    style={{ aspectRatio: project.imageAspect || '16/9' }}
+                                    className="w-full p-4"
                                 >
                                     <ProjectCard
                                         project={{
                                             ...project,
                                             id: project._id,
                                             image: project.images?.[0]?.url || 'https://via.placeholder.com/600x400',
+                                            images: project.images || [],
                                         }}
                                         onClick={setSelectedProject}
-                                        className="h-full w-full"
                                     />
                                 </motion.div>
                             ))}
