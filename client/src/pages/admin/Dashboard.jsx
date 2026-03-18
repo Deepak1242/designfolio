@@ -13,7 +13,7 @@ const Dashboard = () => {
         try {
             const { data } = await api.get('/api/projects');
             setProjects(data);
-        } catch (error) {
+        } catch {
             toast.error('Failed to load projects');
         } finally {
             setLoading(false);
@@ -36,7 +36,7 @@ const Dashboard = () => {
             await api.delete(`/api/projects/${id}`);
             toast.success('Project deleted');
             fetchProjects();
-        } catch (error) {
+        } catch {
             toast.error('Failed to delete project');
         }
     };
@@ -46,7 +46,7 @@ const Dashboard = () => {
             await api.put(`/api/projects/${id}/featured`);
             toast.success('Featured status updated');
             fetchProjects();
-        } catch (error) {
+        } catch {
             toast.error('Failed to update featured status');
         }
     };
@@ -71,7 +71,7 @@ const Dashboard = () => {
                 ) : projects.length === 0 ? (
                     <div className="p-8 border border-dashed border-gray-800 rounded-2xl flex flex-col items-center justify-center text-center">
                         <p className="text-gray-500 mb-4">No projects yet.</p>
-                        <Link to="/admin/project/new" className="text-accent-lime hover:underline">Add your first project</Link>
+                        <Link to="/admin/project/new" className="text-accent-acid hover:underline">Add your first project</Link>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -88,7 +88,7 @@ const Dashboard = () => {
                                         <div className="w-full h-full flex items-center justify-center text-gray-600">No Image</div>
                                     )}
                                     {project.isFeatured && (
-                                        <span className="absolute top-2 left-2 bg-accent-lime text-black text-xs font-bold px-2 py-1 rounded">
+                                        <span className="absolute top-2 left-2 bg-accent-acid text-black text-xs font-bold px-2 py-1 rounded">
                                             ⭐ FEATURED
                                         </span>
                                     )}
@@ -102,8 +102,8 @@ const Dashboard = () => {
                                         <button
                                             onClick={() => handleToggleFeatured(project._id)}
                                             className={`px-3 py-1 text-sm rounded-full border transition-colors ${project.isFeatured
-                                                ? 'bg-accent-lime/20 border-accent-lime text-accent-lime'
-                                                : 'border-gray-700 text-gray-400 hover:border-accent-lime hover:text-accent-lime'
+                                                ? 'bg-accent-acid/20 border-accent-acid text-accent-acid'
+                                                : 'border-gray-700 text-gray-400 hover:border-accent-acid hover:text-accent-acid'
                                                 }`}
                                         >
                                             {project.isFeatured ? '★ Unfeature' : '☆ Feature'}

@@ -55,9 +55,9 @@ const ProjectModal = ({ project, onClose }) => {
                 {/* Content Section - Left (was Right) - Deserves priority in Art Gallery */}
                 <div className="w-full md:w-1/3 h-1/2 md:h-full p-8 md:p-12 flex flex-col overflow-y-auto custom-scrollbar bg-[#F2F0E9] border-r border-black/5 relative">
 
-                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent-purple to-accent-lime" />
+                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent-orange to-accent-acid" />
 
-                    <span className="font-hand text-2xl -rotate-2 text-accent-purple mb-6 block">{project.category}</span>
+                    <span className="font-hand text-2xl -rotate-2 text-accent-orange mb-6 block">{project.category}</span>
                     <h2 className="text-5xl md:text-6xl font-display font-bold text-gallery-text mb-8 leading-none mix-blend-multiply">{project.title}</h2>
 
                     <div className="space-y-6 text-gray-700 leading-relaxed font-serif text-lg mb-auto">

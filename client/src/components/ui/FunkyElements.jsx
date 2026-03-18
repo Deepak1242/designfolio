@@ -21,7 +21,7 @@ export const FloatingImage = ({ src, alt, className, speed = 2, delay = 0 }) => 
 export const RotatingBadge = ({ text = "Scroll • Down • ", className }) => (
   <div className={`absolute pointer-events-none select-none z-10 flex items-center justify-center ${className}`}>
     <motion.div
-      className="w-24 h-24 rounded-full border-2 border-accent-lime flex items-center justify-center bg-white/10 backdrop-blur-sm relative"
+      className="w-24 h-24 rounded-full border-2 border-accent-acid flex items-center justify-center bg-white/10 backdrop-blur-sm relative"
       animate={{ rotate: 360 }}
       transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
     >
@@ -46,7 +46,7 @@ export const FunkySpinner = ({ className }) => (
     animate={{ rotate: 360 }}
     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
   >
-    <svg viewBox="0 0 50 50" className="w-16 h-16 text-accent-pink">
+    <svg viewBox="0 0 50 50" className="w-16 h-16 text-gray-400">
       <path d="M25 0 L50 25 L25 50 L0 25 Z" fill="none" stroke="currentColor" strokeWidth="2" />
       <circle cx="25" cy="25" r="5" fill="currentColor" />
     </svg>

@@ -19,7 +19,7 @@ const ProjectsGallery = () => {
             try {
                 const { data } = await api.get('/api/projects/featured');
                 setProjects(data);
-            } catch (error) {
+            } catch {
                 console.error('Failed to fetch projects');
             } finally {
                 setLoading(false);
@@ -48,9 +48,9 @@ const ProjectsGallery = () => {
 
                 <div className="flex flex-col items-center text-center mb-24">
                     <h2 className="text-[10vw] font-display font-bold text-gallery-text leading-[0.8] mb-8 mix-blend-exclusion relative inline-block">
-                        SELECTED <span className="font-serif italic font-light text-accent-purple">WORKS</span>
+                        SELECTED <span className="font-serif italic font-light text-accent-orange">WORKS</span>
                         <div className="absolute -top-10 -right-20 hidden md:block">
-                            <RotatingBadge text="FEATURED • PROJECTS • " className="text-accent-lime scale-75" />
+                            <RotatingBadge text="FEATURED • PROJECTS • " className="text-accent-acid scale-75" />
                         </div>
                     </h2>
 
@@ -62,7 +62,7 @@ const ProjectsGallery = () => {
                                 className={`font-sans text-sm md:text-base tracking-widest uppercase transition-all duration-300 relative group ${filter === cat ? 'text-black font-bold' : 'text-gray-400 hover:text-black'}`}
                             >
                                 {cat}
-                                <span className={`absolute -bottom-2 left-0 w-full h-0.5 bg-accent-lime transform origin-left transition-transform duration-300 ${filter === cat ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+                                <span className={`absolute -bottom-2 left-0 w-full h-0.5 bg-accent-acid transform origin-left transition-transform duration-300 ${filter === cat ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
                             </button>
                         ))}
                     </div>
@@ -110,7 +110,7 @@ const ProjectsGallery = () => {
                 <div className="text-center mt-16">
                     <Link
                         to="/projects"
-                        className="inline-block px-8 py-4 bg-black text-white font-display font-bold text-lg uppercase tracking-wider rounded-full hover:bg-accent-lime hover:text-black transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(212,230,109,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+                        className="inline-block px-8 py-4 bg-black text-white font-display font-bold text-lg uppercase tracking-wider rounded-full hover:bg-blue-800 hover:text-white transition-all duration-300 shadow-[4px_4px_0px_0px_#1e40af] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
                     >
                         View All Projects →
                     </Link>

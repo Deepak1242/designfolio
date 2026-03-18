@@ -41,7 +41,7 @@ const ProjectForm = () => {
                         isFeatured: data.isFeatured || false,
                         priority: data.priority || 0,
                     });
-                } catch (error) {
+                } catch {
                     toast.error('Failed to fetch project');
                 }
             };
@@ -264,7 +264,7 @@ const ProjectForm = () => {
                                 id="isFeatured"
                                 checked={formData.isFeatured}
                                 onChange={handleChange}
-                                className="w-5 h-5 accent-accent-lime cursor-pointer"
+                                className="w-5 h-5 accent-accent-acid cursor-pointer"
                             />
                             <label htmlFor="isFeatured" className="text-white cursor-pointer">⭐ Featured on Homepage</label>
                         </div>

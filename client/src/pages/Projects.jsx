@@ -17,7 +17,7 @@ const Projects = () => {
             try {
                 const { data } = await api.get('/api/projects');
                 setProjects(data);
-            } catch (error) {
+            } catch {
                 console.error('Failed to fetch projects');
             } finally {
                 setLoading(false);
@@ -37,7 +37,7 @@ const Projects = () => {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <h1 className="text-[12vw] md:text-[8vw] font-display font-bold text-gallery-text leading-[0.85] mb-4">
-                        ALL <span className="font-serif italic font-light text-accent-purple">WORKS</span>
+                        ALL <span className="font-serif italic font-light text-accent-orange">WORKS</span>
                     </h1>
                     <p className="text-gray-500 font-sans text-lg max-w-xl mx-auto">
                         A complete collection of my design projects, from UI/UX to posters and beyond.
@@ -53,7 +53,7 @@ const Projects = () => {
                             className={`font-sans text-sm md:text-base tracking-widest uppercase transition-all duration-300 relative group ${filter === cat ? 'text-black font-bold' : 'text-gray-400 hover:text-black'}`}
                         >
                             {cat}
-                            <span className={`absolute -bottom-2 left-0 w-full h-0.5 bg-accent-lime transform origin-left transition-transform duration-300 ${filter === cat ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+                            <span className={`absolute -bottom-2 left-0 w-full h-0.5 bg-accent-acid transform origin-left transition-transform duration-300 ${filter === cat ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
                         </button>
                     ))}
                 </div>

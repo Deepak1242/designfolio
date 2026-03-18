@@ -27,21 +27,21 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="fixed top-0 left-0 w-full px-6 py-6 md:px-12 md:py-8 flex justify-between items-center z-[100] mix-blend-difference text-white">
-                {/* Brand Logo - Serif & Funky */}
-                <Link to="/" className="text-3xl font-serif italic tracking-tighter interactive hover:skew-x-12 transition-transform origin-left relative group text-white">
-                    studi<span className="text-accent-lime">Ó</span> Deepak.
+            <nav className="fixed top-0 left-0 w-full px-6 py-4 md:px-12 md:py-8 flex justify-between items-center z-[100] mix-blend-difference text-white">
+                {/* Brand Logo */}
+                <Link to="/" className="flex items-center interactive hover:scale-105 transition-transform origin-left relative group">
+                    <img src="/logomain.png" alt="Nextruss Designs Logo" className="h-20 md:h-32 w-auto object-contain" />
                 </Link>
 
                 {/* Desktop Menu - Floating Pill */}
                 <div className="hidden md:flex gap-2 items-center bg-white/10 backdrop-blur-md px-2 py-2 rounded-full border border-white/20">
-                    <MagneticButton className="px-6 py-2 rounded-full hover:bg-white hover:text-black transition-colors duration-300">
+                    <MagneticButton className="px-6 py-2 rounded-full hover:bg-blue-800 hover:text-white transition-colors duration-300">
                         <a href="#work" onClick={(e) => handleScroll(e, '#work')} className="font-sans text-sm tracking-widest uppercase font-bold">Work</a>
                     </MagneticButton>
-                    <MagneticButton className="px-6 py-2 rounded-full hover:bg-white hover:text-black transition-colors duration-300">
+                    <MagneticButton className="px-6 py-2 rounded-full hover:bg-blue-800 hover:text-white transition-colors duration-300">
                         <a href="#about" onClick={(e) => handleScroll(e, '#about')} className="font-sans text-sm tracking-widest uppercase font-bold">About</a>
                     </MagneticButton>
-                    <MagneticButton className="px-6 py-2 rounded-full bg-white text-black hover:bg-accent-lime transition-colors duration-300">
+                    <MagneticButton className="px-6 py-2 rounded-full bg-white text-black hover:bg-blue-800 hover:text-white transition-colors duration-300">
                         <a href="#contact" onClick={(e) => handleScroll(e, '#contact')} className="font-sans text-sm tracking-widest uppercase font-bold">Let's Talk</a>
                     </MagneticButton>
                 </div>
