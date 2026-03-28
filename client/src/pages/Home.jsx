@@ -8,6 +8,7 @@ import ContactSection from '../components/home/ContactSection';
 import { RotatingBadge } from '../components/ui/FunkyElements';
 import { Star, Underline } from '../components/ui/Scribbles';
 import StarBorder from '../components/ui/StarBorder';
+import AIChatWidget from '../components/ui/AIChatWidget';
 
 const Home = () => {
     const containerRef = useRef(null);
@@ -92,6 +93,9 @@ const Home = () => {
             <ProjectsGallery />
 
             <ContactSection />
+
+            {/* AI Assistant Chat Widget */}
+            <AIChatWidget />
 
         </div>
     );
